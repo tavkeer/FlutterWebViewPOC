@@ -29,11 +29,18 @@ class WebViewContainer extends StatefulWidget {
 }
 
 class _WebViewContainerState extends State<WebViewContainer> {
-  final controller = WebViewController()
-    ..setJavaScriptMode(JavaScriptMode.disabled)
-    ..loadRequest(
-      Uri.parse('https://tavkeer.canny.io/tavkeer/p/first-post'),
-    );
+  late final WebViewController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..loadRequest(
+        Uri.parse('https://tavkeer.canny.io/tavkeer/p/first-post'),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +48,7 @@ class _WebViewContainerState extends State<WebViewContainer> {
         title: const Text('Feature voting'),
       ),
       body: WebViewWidget(
-        controller: controller,
+        controller: _controller,
       ),
     );
   }
